@@ -2,10 +2,10 @@
 
 /**
  * _myhistory - displays the history list, one command by line, preceded
- * with line numbers, starting at 0.
- * @info: structure containing arguments. Used to maintain
- *      constant function prototype.
- * Return: Always 0
+ *              with line numbers, starting at 0.
+ * @info: intain
+ *        constant function prototype.
+ *  Return: Always 0
  */
 int _myhistory(info_t *info)
 {
@@ -14,9 +14,10 @@ int _myhistory(info_t *info)
 }
 
 /**
- * unset_alias - set alias to string
+ * unset_alias - sets alias to string
  * @info: parameter struct
  * @str: the string alias
+ *
  * Return: Always 0 on success, 1 on error
  */
 int unset_alias(info_t *info, char *str)
@@ -24,22 +25,22 @@ int unset_alias(info_t *info, char *str)
 	char *p, c;
 	int ret;
 
-	p = _strchr(str, '-');
+	p = _strchr(str, '=');
 	if (!p)
 		return (1);
-
 	c = *p;
 	*p = 0;
-	ret = delete_node_idx(&(info->alias),
-			get_node(info->alias, node_pointer(info->alias, str, -1)));
+	ret = delete_node_at_index(&(info->alias),
+		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
 	*p = c;
 	return (ret);
 }
 
 /**
- * set_alias - set alias to string
- * @info: pareamter struct
+ * set_alias - sets alias to string
+ * @info: parm
  * @str: the string alias
+ *
  * Return: Always 0 on success, 1 on error
  */
 int set_alias(info_t *info, char *str)
@@ -57,9 +58,10 @@ int set_alias(info_t *info, char *str)
 }
 
 /**
- * print_alias - prints an alias string
+ * print_alias string
  * @node: the alias node
- * Return: always 0 success, 1 otherwise
+ *
+ * Return: Always 0 on success, 1 on error
  */
 int print_alias(list_t *node)
 {
@@ -69,10 +71,10 @@ int print_alias(list_t *node)
 	{
 		p = _strchr(node->str, '=');
 		for (a = node->str; a <= p; a++)
-			_putchar(*a);
+		_putchar(*a);
 		_putchar('\'');
 		_puts(p + 1);
-		_puts(" '\n");
+		_puts("'\n");
 		return (0);
 	}
 	return (1);
@@ -80,9 +82,9 @@ int print_alias(list_t *node)
 
 /**
  * _myalias - mimics the alias builtin (man alias)
- * @info: Structure containing potential arguments. used to maintain
- *      constant function prototype
- * Return: Always 0
+ * @info: Structure maintain
+ *          constant function prototype.
+ *  Return: Always 0
  */
 int _myalias(info_t *info)
 {
@@ -106,7 +108,8 @@ int _myalias(info_t *info)
 		if (p)
 			set_alias(info, info->argv[i]);
 		else
-			print_alias(starts_with(info->alias, info->argv[i], '='));
+			print_alias(node_starts_with(info->alias, info->argv[i], '='));
 	}
+
 	return (0);
 }
