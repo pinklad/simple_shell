@@ -1,59 +1,62 @@
 #include "shell.h"
 
 /**
- * is_cmd - dtermines if a file is an executable command
- * @path: path to the file
- * Return: 1 success, 0 otherwise
+ * is_cmd - gives  executable command
+ * @info: the struct
+ * @path: path 
+ *
+ * Return: 1 if true
  */
 int is_cmd(info_t *info, char *path)
 {
 	struct stat st;
+
 	(void)info;
+	if (!path || stat(path, &st))
+		return (0);
 
-	if (path && !stat(path, &st) && (st.st_mode & S_IFREG))
+	if (st.st_mode & S_IFREG)
+	{
 		return (1);
-
+	}
 	return (0);
 }
+
 /**
  * dup_chars - duplicates characters
- * @pathstr: the PATH string
+ *  string
  * @start: starting index
- * @stop: stopping index
- * Return: pointer to new buffer
+ * @stop: stopping 
+ *
+ * Return:  new buffer
  */
 char *dup_chars(char *pathstr, int start, int stop)
 {
 	static char buf[1024];
-	char *ptr = buf;
-	int i;
+	int i = 0, k = 0;
 
-	for (i = start; i < stop; i++)
-	{
+	for (k = 0, i = start; i < stop; i++)
 		if (pathstr[i] != ':')
-		{
-			*ptr = pathstr[i];
-			ptr++;
-		}
-	}
-	*ptr = '\0';
+			buf[k++] = pathstr[i];
+	buf[k] = 0;
 	return (buf);
 }
+
 /**
  * find_path - finds this cmd in the PATH string
- * @info: info struct
- * @pathstr: PATH string
+ * @info: the info struct
+ * @pathstr: the PATH string
  * @cmd: the cmd to find
+ *
  * Return: full path of cmd if found or NULL
  */
 char *find_path(info_t *info, char *pathstr, char *cmd)
 {
-	int i = 0, k = 0;
+	int i = 0, curr_pos = 0;
 	char *path;
 
 	if (!pathstr)
 		return (NULL);
-
 	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
 	{
 		if (is_cmd(info, cmd))
@@ -63,9 +66,9 @@ char *find_path(info_t *info, char *pathstr, char *cmd)
 	{
 		if (!pathstr[i] || pathstr[i] == ':')
 		{
-			path = dup_chars(pathstr, k, i);
+			path = dup_chars(pathstr, curr_pos, i);
 			if (!*path)
-				__strcat(path, cmd);
+				_strcat(path, cmd);
 			else
 			{
 				_strcat(path, "/");
@@ -75,10 +78,9 @@ char *find_path(info_t *info, char *pathstr, char *cmd)
 				return (path);
 			if (!pathstr[i])
 				break;
-			k = i;
+			curr_pos = i;
 		}
 		i++;
 	}
 	return (NULL);
 }
-

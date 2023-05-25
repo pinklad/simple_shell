@@ -1,75 +1,62 @@
 #include "shell.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 /**
- * _memset - a function program that prints memory
- * @x: character pointer
- * @y: character input
- * @n: number of bytes
- * Return: memory
+ *memeset fills with a 
+ * @s: the pointer to the memory area
+ * @b: the by
+ * @n: the amount of bytes to be filled
+ * Return: (s) a 
  */
-char *_memset(char *x, char y, unsigned int n)
+char *_memset(char *s, char b, unsigned int n)
 {
-	unsigned int a;
+	unsigned int i;
 
-	a = 0;
-
-	while (a < n)
-	{
-		x[a] = y;
-		a++;
-	}
-	return (x);
+	for (i = 0; i < n; i++)
+		s[i] = b;
+	return (s);
 }
-/**
- * s_free - a program function that frees a string
- * @kd: string
- * Return: free string
- */
-void s_free(char **kd)
-{
-	char **z = kd;
 
-	if (kd == NULL)
+/**
+ * ffree - frees a string of strings
+ * @pp: string of strings
+ */
+void ffree(char **pp)
+{
+	char **a = pp;
+
+	if (!pp)
 		return;
-	while (*kd != NULL)
-	{
-		free(*kd);
-		*kd = NULL;
-		kd++;
-	}
-	free(z);
+	while (*pp)
+		free(*pp++);
+	free(a);
 }
+
 /**
- * _realloc - function that reallocates memory
- * @mptr: memory pointer
- * @prev_byte: previous byte of memory
- * @next_byte: next byte of memory
- * Return: reallocated memory
+ * _realloc - reallocates a block of memory
+ * @ptr: pointer to previous malloc'ated block
+ * @old_size: byte size of previous block
+ * @new_size: byte size of new block
+ *
+ * Return: pointer to da ol'block nameen.
  */
-void *_realloc(void *mptr, unsigned int prev_byte, unsigned int next_byte)
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	char *b;
+	char *p;
 
-	if (!mptr)
-		return (malloc(next_byte));
-	if (!next_byte)
-	{
-		free(mptr);
-		return (NULL);
-	}
-	if (next_byte == prev_byte)
-		return (mptr);
+	if (!ptr)
+		return (malloc(new_size));
+	if (!new_size)
+		return (free(ptr), NULL);
+	if (new_size == old_size)
+		return (ptr);
 
-	b = malloc(next_byte);
-	if (!b)
+	p = malloc(new_size);
+	if (!p)
 		return (NULL);
 
-	prev_byte = prev_byte < next_byte ? prev_byte : next_byte;
-	while (prev_byte--)
-		b[prev_byte] = ((char *)mptr)[prev_byte];
-
-	free(mptr);
-	return (b);
+	old_size = old_size < new_size ? old_size : new_size;
+	while (old_size--)
+		p[old_size] = ((char *)ptr)[old_size];
+	free(ptr);
+	return (p);
 }
-

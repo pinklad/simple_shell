@@ -1,17 +1,18 @@
 #include "shell.h"
+
 /**
- * _memfree - a program function that frees a pointer
- * @mptr: a pointer to the free memory
- * Return: free memory
+ *  - frees a pointer
+ * @ptr: address
+ *
+ * Return: 1 if freed, void
  */
-int _memfree(void **mptr)
+int bfree(void **ptr)
 {
-	if (mptr && *mptr)
+	if (ptr && *ptr)
 	{
-		free(*mptr);
-		*mptr = NULL;
+		free(*ptr);
+		*ptr = NULL;
 		return (1);
 	}
 	return (0);
 }
-

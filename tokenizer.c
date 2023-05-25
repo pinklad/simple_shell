@@ -1,92 +1,94 @@
 #include "shell.h"
 
 /**
- * strtow - splits a string into words. Repeat delimiters are ignored
- * @str: the input string
- * @d: the delimeter string
- * Return: a  pointer 
+ * **strtow  ignored
+ * @str: the
+ * @d:  delimeter
+ * Return: a  NULL on failure
  */
+
 char **strtow(char *str, char *d)
 {
-	int wordIndex = 0, startIndex = 0, numWords = 0, len = strlen(str), i, j, wl;
-	char **s = NULL;
-
-	if (str == NULL || str[0] == '\0')
-		return (NULL);
-	if (!d)
-		d = " ";
-	for (i = 0; i < len; i++)
-		if (!_delim(str[i], d) && (_delim(str[i + 1], d) || str[i + 1]))
-			numWords++;
-
-	if (numWords == 0)
-		return (NULL);
-	s = malloc((numWords + 1) * sizeof(char *));
-	if (!s)
-		return (NULL);
-	for (i = 0; i <= len; i++)
-	{
-		if (_delim(str[i], d) || str[i] == '\0')
-		{
-			if (i - startIndex > 0)
-			{
-				wl = i - startIndex;
-				s[wordIndex] = malloc((wl + 1) * sizeof(char));
-				if (!s[wordIndex])
-				{
-					for (j = 0; j < wordIndex; j++)
-						free(s[j]);
-					free(s);
-					return (NULL);
-				}
-				memcpy(s[wordIndex], &str[startIndex], wl);
-				s[wordIndex][wl] = '\0';
-			}
-			startIndex = i + 1;
-		}
-	}
-	s[wordIndex] = NULL;
-	return (s);
-}
-
-/**
- * strtow2 - splits a string into words
- * @str: the input string
- * @d: the delimeter
- * Return: a NULL on failure
- */
-char **strtow2(char *str, char d)
-{
-	int i, wordlen, wordIndex = 0, startIndex = 0, numWords = 0;
+	int i, j, k, m, numwords = 0;
 	char **s;
 
 	if (str == NULL || str[0] == 0)
 		return (NULL);
+	if (!d)
+		d = " ";
+	for (i = 0; str[i] != '\0'; i++)
+		if (!is_delim(str[i], d) && (is_delim(str[i + 1], d) || !str[i + 1]))
+			numwords++;
 
-	for (i = 0; i < str[i] != '\0'; i++)
-	{
-		if ((str[i] != d && str[i + 1] == d) || str[i + 1] == d ||
-				(str[i] != d && !str[i + 1]))
-		{
-			numWords++;
-		}
-	}
-	if (numWords == 0)
+	if (numwords == 0)
 		return (NULL);
-	s = malloc((1 + numWords) * sizeof(char *));
-	for (i = 0; i < numWords; i++)
+	s = malloc((1 + numwords) * sizeof(char *));
+	if (!s)
+		return (NULL);
+	for (i = 0, j = 0; j < numwords; j++)
 	{
-		if (str[i] == d || i == str.Length)
+		while (is_delim(str[i], d))
+			i++;
+		k = 0;
+		while (!is_delim(str[i + k], d) && str[i + k])
+			k++;
+		s[j] = malloc((k + 1) * sizeof(char));
+		if (!s[j])
 		{
-			if (i - startIndex > 0)
-			{
-				wordlen = i - startIndex;
-				s[wordIndex] = str.Substring(startIndex, wordlen);
-				wordIndex++;
-			}
-			startIndex = i + 1;
+			for (k = 0; k < j; k++)
+				free(s[k]);
+			free(s);
+			return (NULL);
 		}
+		for (m = 0; m < k; m++)
+			s[j][m] = str[i++];
+		s[j][m] = 0;
 	}
+	s[j] = NULL;
 	return (s);
 }
 
+/**
+ * **strtow2 
+ * @str: the input string
+ * @d: delimeter
+ * Return:  pointer on failure
+ */
+char **strtow2(char *str, char d)
+{
+	int i, j, k, m, numwords = 0;
+	char **s;
+
+	if (str == NULL || str[0] == 0)
+		return (NULL);
+	for (i = 0; str[i] != '\0'; i++)
+		if ((str[i] != d && str[i + 1] == d) ||
+				    (str[i] != d && !str[i + 1]) || str[i + 1] == d)
+			numwords++;
+	if (numwords == 0)
+		return (NULL);
+	s = malloc((1 + numwords) * sizeof(char *));
+	if (!s)
+		return (NULL);
+	for (i = 0, j = 0; j < numwords; j++)
+	{
+		while (str[i] == d && str[i] != d)
+			i++;
+		k = 0;
+		while (str[i + k] != d && str[i + k] && str[i + k] != d)
+			k++;
+		s[j] = malloc((k + 1) * sizeof(char));
+		if (!s[j])
+		{
+			for (k = 0; k < j; k++)
+				free(s[k]);
+			free(s);
+			return (NULL);
+		}
+		for (m = 0; m < k; m++)
+			s[j][m] = str[i++];
+		s[j][m] = 0;
+	}
+	s[j] = NULL;
+	return (s);
+}
