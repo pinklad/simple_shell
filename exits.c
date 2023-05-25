@@ -1,65 +1,73 @@
 #include "shell.h"
 
 /**
- * _strncpy - copies a string
- * @dest: the destination string to be copied to
- * @src: source string
- * @n: the amout of characters to be copied
- * Return: concatenated string
+ **_strncpy - copies a string
+ *@dest: the  to
+ *@src: the source string
+ *@n: the 
+ *Return: the concatenated string
  */
 char *_strncpy(char *dest, char *src, int n)
 {
-	int i;
+	int i, j;
 	char *s = dest;
 
-	for (i = 0; i < n && src[i] != '\0'; i++)
+	i = 0;
+	while (src[i] != '\0' && i < n - 1)
 	{
 		dest[i] = src[i];
+		i++;
 	}
-	for (; i < n; i++)
+	if (i < n)
 	{
-		dest[i] = '\0';
+		j = i;
+		while (j < n)
+		{
+			dest[j] = '\0';
+			j++;
+		}
 	}
 	return (s);
 }
+
 /**
- * _strncat - concatenated two string
- * @dest: first string
- * @src: second string
- * @n: the amount of bytes to be maximally used
- * Return: concatenated string
+ **_strncat -  strings
+ *@dest: the first string
+ *@src: the second string
+ *@n: the sed
+ *Return: ring
  */
 char *_strncat(char *dest, char *src, int n)
 {
+	int i, j;
 	char *s = dest;
 
-	/*Move dest pointer to end of string*/
-	while (*dest != '\0')
-		dest++;
-
-	/*Copy src to dest until n characters hv been copied*/
-	/*or the end of src is reached*/
-	while (*src != '\0' && n--)
-		*dest++ = *src++;
-
-	*dest = '\0';
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (src[j] != '\0' && j < n)
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	if (j < n)
+		dest[i] = '\0';
 	return (s);
 }
 
 /**
- * _strchr - locates a character in a string
- * @s: string to be parsed
- * @c: character to look for
- * Return: (s) pointer to the memory area s
+ **_strchr -  string
+ *@s: par for
+ *Return: area s
  */
 char *_strchr(char *s, char c)
 {
-	int i;
+	do {
+		if (*s == c)
+			return (s);
+	} while (*s++ != '\0');
 
-	for (i = 0; s[i] != '\0'; i++)
-	{
-		if (s[i] == c)
-			return (&s[i]);
-	}
 	return (NULL);
 }

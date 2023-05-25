@@ -1,53 +1,44 @@
 #include "shell.h"
-#include <stdio.h>
+
 /**
- * eputs - function that writes error to standard stream
- * @str: string
- * Return: written error
+ * main - entry point
+ * @ac: arg count
+ * @av: arg vector
+ *
+ * Return: 0 on success, 1 on error
  */
-void eputs(const char *str)
+int main(int ac, char **av)
 {
-	fprintf(stderr, "%s\n", str);
-}
-/**
- * main - the startof the main function
- * @agc: input int
- * @agv: char input
- * Return: Always 0
- */
-int main(int agc, char **agv)
-{
-	int pd = 2;
 	info_t info[] = { INFO_INIT };
-	__asm__ __volatile__ ("mov %1, %0\n\t"
+	int fd = 2;
+
+	asm ("mov %1, %0\n\t"
 			"add $3, %0"
-			: "=r" (pd)
-			: "r" (pd));
-	if (agc == 2)
+			: "=r" (fd)
+			: "r" (fd));
+
+	if (ac == 2)
 	{
-		pd = open(agv[1], O_RDONLY);
-		if (pd == -1)
+		fd = open(av[1], O_RDONLY);
+		if (fd == -1)
 		{
 			if (errno == EACCES)
-			{
 				exit(126);
-			}
 			if (errno == ENOENT)
 			{
-				_eputs(agv[0]);
-				_eputs(": 0: Close ");
-				_eputs(agv[1]);
+				_eputs(av[0]);
+				_eputs(": 0: Can't open ");
+				_eputs(av[1]);
 				_eputchar('\n');
-				_putchar(BUF_FLUSH);
+				_eputchar(BUF_FLUSH);
 				exit(127);
 			}
 			return (EXIT_FAILURE);
 		}
-		info->readpd = pd;
+		info->readfd = fd;
 	}
 	populate_env_list(info);
-	create_history(info);
-	hsh(info, agv);
+	read_history(info);
+	hsh(info, av);
 	return (EXIT_SUCCESS);
 }
-
