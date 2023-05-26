@@ -1,6 +1,7 @@
 #include "shell.h"
 
 /**
+<<<<<<< HEAD
  * Analysis, parsing, or syntax analysis refers to the process of examining a sequence of symbols,
  * which can be natural language, computer languages, or data structures.
  */
@@ -11,6 +12,13 @@
  * @path: path to the file
  *
  * Return: 1 if it's a command, 0 otherwise
+=======
+ * is_cmd - determines if a file is an executable command
+ * @info: the info struct
+ * @path: path to the file
+ *
+ * Return: 1 if true, 0 otherwise
+>>>>>>> 44bc5d40d7a00415990f432dec4c6573e1a7a153
  */
 int verify_command(info_t *info, char *path)
 {
@@ -28,12 +36,21 @@ int verify_command(info_t *info, char *path)
 }
 
 /**
+<<<<<<< HEAD
  * duplicate_characters - duplicates characters from a string
  * @pathstr: the original string
  * @start: starting index
  * @stop: stopping index
  *
  * Return: pointer to the new duplicated string
+=======
+ * dup_chars - duplicates characters
+ * @pathstr: the PATH string
+ * @start: starting index
+ * @stop: stopping index
+ *
+ * Return: pointer to new buffer
+>>>>>>> 44bc5d40d7a00415990f432dec4c6573e1a7a153
  */
 char *duplicate_characters(char *pathstr, int start, int stop)
 {

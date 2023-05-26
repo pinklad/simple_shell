@@ -1,0 +1,19 @@
+#include <unistd.h>
+
+/**
+ * _eputchar - writes a character to the standard error
+ * @c: the character to write
+ *
+ * Return: On success, 1. On error, -1 is returned, and errno is set appropriately.
+ */
+void _eputchar(char c)
+{
+    ssize_t w;
+
+    w = write(STDERR_FILENO, &c, 1);
+    if (w == -1)
+    {
+        /* Handle write error */
+    }
+}
+
