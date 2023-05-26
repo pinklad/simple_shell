@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * is_cmd - gives  executable command
- * @info: the struct
- * @path: path 
+ * is_cmd - determines if a file is an executable command
+ * @info: the info struct
+ * @path: path to the file
  *
- * Return: 1 if true
+ * Return: 1 if true, 0 otherwise
  */
 int is_cmd(info_t *info, char *path)
 {
@@ -24,11 +24,11 @@ int is_cmd(info_t *info, char *path)
 
 /**
  * dup_chars - duplicates characters
- *  string
+ * @pathstr: the PATH string
  * @start: starting index
- * @stop: stopping 
+ * @stop: stopping index
  *
- * Return:  new buffer
+ * Return: pointer to new buffer
  */
 char *dup_chars(char *pathstr, int start, int stop)
 {
