@@ -1,7 +1,7 @@
 #include <unistd.h>
 
 /**
- * _putchar - write c to stdout
+ * _putchar - write the character c to stdout
  * @c: The character to print
  * Return: on success 1.
  */
