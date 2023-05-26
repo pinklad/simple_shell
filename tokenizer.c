@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * **strtow  ignored
- * @str: the
- * @d:  delimeter
- * Return: a  NULL on failure
+ * **strtow - Makes and or splits thee string to words
+ * @str: Place the string here
+ * @d: This is a delimeter string
+ * Return:  pointer toa string array, or NULL if it fails
  */
 
 char **strtow(char *str, char *d)
@@ -49,10 +49,10 @@ char **strtow(char *str, char *d)
 }
 
 /**
- * **strtow2 
- * @str: the input string
- * @d: delimeter
- * Return:  pointer on failure
+ * **strtow2 - Makes the string into two words
+ * @str: String input
+ * @d:  delimeter
+ * Return: the pointer tostring array, or NULL if fails 
  */
 char **strtow2(char *str, char d)
 {
@@ -63,7 +63,7 @@ char **strtow2(char *str, char d)
 		return (NULL);
 	for (i = 0; str[i] != '\0'; i++)
 		if ((str[i] != d && str[i + 1] == d) ||
-				    (str[i] != d && !str[i + 1]) || str[i + 1] == d)
+		    (str[i] != d && !str[i + 1]) || str[i + 1] == d)
 			numwords++;
 	if (numwords == 0)
 		return (NULL);

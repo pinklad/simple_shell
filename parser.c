@@ -1,13 +1,18 @@
 #include "shell.h"
 
 /**
- * is_cmd - gives  executable command
- * @info: the struct
- * @path: path 
- *
- * Return: 1 if true
+ * Analysis, parsing, or syntax analysis refers to the process of examining a sequence of symbols,
+ * which can be natural language, computer languages, or data structures.
  */
-int is_cmd(info_t *info, char *path)
+
+/**
+ * verify_command - checks if a file is an executable command
+ * @info: info structure
+ * @path: path to the file
+ *
+ * Return: 1 if it's a command, 0 otherwise
+ */
+int verify_command(info_t *info, char *path)
 {
 	struct stat st;
 
@@ -23,14 +28,14 @@ int is_cmd(info_t *info, char *path)
 }
 
 /**
- * dup_chars - duplicates characters
- *  string
+ * duplicate_characters - duplicates characters from a string
+ * @pathstr: the original string
  * @start: starting index
- * @stop: stopping 
+ * @stop: stopping index
  *
- * Return:  new buffer
+ * Return: pointer to the new duplicated string
  */
-char *dup_chars(char *pathstr, int start, int stop)
+char *duplicate_characters(char *pathstr, int start, int stop)
 {
 	static char buf[1024];
 	int i = 0, k = 0;
@@ -43,14 +48,14 @@ char *dup_chars(char *pathstr, int start, int stop)
 }
 
 /**
- * find_path - finds this cmd in the PATH string
- * @info: the info struct
+ * find_command_path - finds the full path of a command in the PATH string
+ * @info: info structure
  * @pathstr: the PATH string
- * @cmd: the cmd to find
+ * @cmd: the command to find
  *
- * Return: full path of cmd if found or NULL
+ * Return: full path of the command if found, NULL otherwise
  */
-char *find_path(info_t *info, char *pathstr, char *cmd)
+char *find_command_path(info_t *info, char *pathstr, char *cmd)
 {
 	int i = 0, curr_pos = 0;
 	char *path;
@@ -59,14 +64,14 @@ char *find_path(info_t *info, char *pathstr, char *cmd)
 		return (NULL);
 	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
 	{
-		if (is_cmd(info, cmd))
+		if (verify_command(info, cmd))
 			return (cmd);
 	}
 	while (1)
 	{
 		if (!pathstr[i] || pathstr[i] == ':')
 		{
-			path = dup_chars(pathstr, curr_pos, i);
+			path = duplicate_characters(pathstr, curr_pos, i);
 			if (!*path)
 				_strcat(path, cmd);
 			else
@@ -74,7 +79,7 @@ char *find_path(info_t *info, char *pathstr, char *cmd)
 				_strcat(path, "/");
 				_strcat(path, cmd);
 			}
-			if (is_cmd(info, path))
+			if (verify_command(info, path))
 				return (path);
 			if (!pathstr[i])
 				break;
