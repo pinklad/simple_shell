@@ -2,9 +2,9 @@
 
 /**
  **_strncpy - copies a string
- *@dest: the  to
+ *@dest: the destination string to be copied to
  *@src: the source string
- *@n: the 
+ *@n: the amount of characters to be copied
  *Return: the concatenated string
  */
 char *_strncpy(char *dest, char *src, int n)
@@ -31,11 +31,11 @@ char *_strncpy(char *dest, char *src, int n)
 }
 
 /**
- **_strncat -  strings
- *@dest: the first string
- *@src: the second string
- *@n: the sed
- *Return: ring
+ **_strncat - concat
+ *@dest: first string
+ *@src: second string
+ *@n:amount of bytes to be maximally used
+ *Return:concatenated string
  */
 char *_strncat(char *dest, char *src, int n)
 {
@@ -58,9 +58,10 @@ char *_strncat(char *dest, char *src, int n)
 }
 
 /**
- **_strchr -  string
- *@s: par for
- *Return: area s
+ **_strchr - char in string
+ *@s: parsed string
+ *@c: char to be located
+ *Return: pointer to s memory
  */
 char *_strchr(char *s, char c)
 {
