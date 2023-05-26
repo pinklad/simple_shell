@@ -1,20 +1,15 @@
 #include "shell.h"
 
 /**
-<<<<<<< HEAD
- * my_memset - fills memory with a specified byte value
+ * my_memset - fills  byte value
  * @s: pointer to the memory area
- * @b: byte value to fill the memory with
+ * @b: byte memory with
  * @n: number of bytes to be filled
- *
- * Return: a pointer to the memory area s
-=======
  * _memset - fills memory with a constant byte
- * @s: the pointer to the memory area
- * @b: the byte to fill *s with
- * @n: the amount of bytes to be filled
+ * @s: pointer area
+ * @b: *s with
+ * @n: the to be filled
  * Return: (s) a pointer to the memory area s
->>>>>>> 44bc5d40d7a00415990f432dec4c6573e1a7a153
  */
 char *my_memset(char *s, char b, unsigned int n)
 {
@@ -42,11 +37,11 @@ void custom_free(char **pp)
 
 /**
  * my_realloc - reallocates a block of memory
- * @ptr: pointer to the previous allocated block
- * @old_size: size of the previous block in bytes
- * @new_size: size of the new block in bytes
+ * @ptr: pointer previous allocated block
+ * @old_size: size previous block
+ * @new_size: size new block
  *
- * Return: pointer to the reallocated memory block
+ * Return: pointer
  */
 void *my_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
