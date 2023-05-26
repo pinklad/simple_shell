@@ -2,10 +2,10 @@
 
 /**
  * main - entry point
- * @ac: arg count
- * @av: arg vector
+ * @ac: count
+ * @av: vector
  *
- * Return: success 0,error to  1
+ * Return: 0 on success, 1 on error
  */
 int main(int ac, char **av)
 {
